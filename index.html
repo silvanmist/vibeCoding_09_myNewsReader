@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>맞춤형 뉴스 리더 (Custom News Reader)</title>
+  <meta name="description" content="비즈니스, 스포츠, 문화 등 관심 있는 분야의 실시간 헤드라인을 모아보는 맞춤형 뉴스 리더">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 상단 헤더 & 컨트롤 바 -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo-icon">📰</div>
+        <div class="brand-text">
+          <h1>News Pulse</h1>
+          <p class="subtitle">맞춤형 실시간 뉴스 리더</p>
+        </div>
+      </div>
+
+      <!-- 주제 다중 선택 컨트롤 바 -->
+      <section class="filter-section" aria-label="뉴스 카테고리 선택">
+        <div class="category-selectors" role="group" aria-label="관심 주제 다중 선택">
+          <label class="category-chip" for="cat-business">
+            <input type="checkbox" id="cat-business" value="Business" checked>
+            <span class="chip-content">
+              <span class="chip-icon">💼</span>
+              <span class="chip-label">비즈니스</span>
+              <span class="check-mark">✓</span>
+            </span>
+          </label>
+
+          <label class="category-chip" for="cat-sports">
+            <input type="checkbox" id="cat-sports" value="Sports" checked>
+            <span class="chip-content">
+              <span class="chip-icon">⚽</span>
+              <span class="chip-label">스포츠</span>
+              <span class="check-mark">✓</span>
+            </span>
+          </label>
+
+          <label class="category-chip" for="cat-culture">
+            <input type="checkbox" id="cat-culture" value="Entertainment">
+            <span class="chip-content">
+              <span class="chip-icon">🎭</span>
+              <span class="chip-label">문화</span>
+              <span class="check-mark">✓</span>
+            </span>
+          </label>
+        </div>
+
+        <button id="fetch-news-btn" class="primary-btn" type="button">
+          <span class="btn-icon">⚡</span>
+          <span class="btn-text">뉴스 보기</span>
+        </button>
+      </section>
+    </div>
+  </header>
+
+  <!-- 메인 피드 컨테이너 -->
+  <main class="main-content">
+    <div class="feed-header">
+      <div class="feed-title-wrap">
+        <h2 id="feed-heading" class="feed-title">실시간 헤드라인 피드</h2>
+        <span id="article-count-badge" class="count-badge">0건의 기사</span>
+      </div>
+      <div id="active-topics-tags" class="active-topics"></div>
+    </div>
+
+    <!-- 반응형 기사 카드 그리드 -->
+    <div id="news-grid" class="news-grid" role="feed" aria-busy="false">
+      <!-- 동적으로 기사 카드들이 생성됩니다 -->
+    </div>
+
+    <!-- 무한 스크롤 센티넬 & 로더 -->
+    <div id="infinite-scroll-trigger" class="scroll-trigger">
+      <div id="loading-spinner" class="loading-indicator hidden">
+        <div class="spinner"></div>
+        <span>새로운 기사를 불러오는 중...</span>
+      </div>
+      <div id="end-of-feed" class="end-message hidden">
+        <span>🎉 모든 뉴스를 다 확인했습니다.</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- 기사 상세 모달 -->
+  <div id="article-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button id="modal-close-btn" class="modal-close-btn" aria-label="모달 닫기">✕</button>
+      
+      <div class="modal-header">
+        <div class="modal-meta">
+          <span id="modal-category" class="category-tag">카테고리</span>
+          <span id="modal-source-wrap" class="source-wrap">
+            <img id="modal-source-icon" class="source-favicon" src="" alt="">
+            <span id="modal-source-name" class="source-name">언론사</span>
+          </span>
+        </div>
+        <h2 id="modal-title" class="modal-title">기사 제목</h2>
+      </div>
+
+      <div class="modal-media">
+        <img id="modal-image" class="modal-image" src="" alt="기사 대표 이미지">
+      </div>
+
+      <div class="modal-body">
+        <p id="modal-description" class="modal-description">기사 상세 내용 요약...</p>
+        
+        <div class="modal-footer-action">
+          <a id="modal-original-link" href="#" target="_blank" rel="noopener noreferrer" class="link-btn">
+            <span>원문 기사 전체 읽기</span>
+            <span class="external-icon">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
